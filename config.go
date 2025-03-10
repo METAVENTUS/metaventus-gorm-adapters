@@ -12,8 +12,8 @@ type GormConfig struct {
 	MigrationsDir string
 }
 
-// load recupération des variables d'env nécessaire à la connexion à postgresql
-func (p *GormConfig) load() error {
+// Load recupération des variables d'env nécessaire à la connexion à postgresql
+func (p *GormConfig) Load() error {
 	if err := checkEnvVarsExists([]string{"DB_HOST", "DB_PORT", "DB_USER", "DB_PASSWORD", "DB_DATABASE"}); err != nil {
 		return err
 	}
