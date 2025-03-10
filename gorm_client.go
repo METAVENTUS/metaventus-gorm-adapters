@@ -125,3 +125,12 @@ func (pgc *GormClient) executeSQLFile(filePath string) error {
 	}
 	return nil
 }
+
+func (pgc *GormClient) Close() error {
+	db, err := pgc.DB.DB()
+	if err != nil {
+		return err
+	}
+
+	return db.Close()
+}
