@@ -5,15 +5,15 @@ import (
 	"os"
 )
 
-// PostgresSQLConfig config nécessaire à la connexion à postgresql
-type PostgresSQLConfig struct {
+// GormConfig config nécessaire à la connexion à postgresql
+type GormConfig struct {
 	DSN           string
 	INIT          bool
 	MigrationsDir string
 }
 
 // load recupération des variables d'env nécessaire à la connexion à postgresql
-func (p *PostgresSQLConfig) load() error {
+func (p *GormConfig) load() error {
 	if err := checkEnvVarsExists([]string{"DB_HOST", "DB_PORT", "DB_USER", "DB_PASSWORD", "DB_DATABASE"}); err != nil {
 		return err
 	}

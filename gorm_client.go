@@ -15,7 +15,7 @@ type GormClient struct {
 	migrationsDir string
 }
 
-func New(cfg *PostgresSQLConfig, migrationStructs ...any) (*GormClient, error) {
+func New(cfg *GormConfig, migrationStructs ...any) (*GormClient, error) {
 	db, err := gorm.Open(postgres.Open(cfg.DSN), &gorm.Config{})
 	if err != nil {
 		return nil, err
@@ -80,6 +80,9 @@ func (pgc *GormClient) migrations(migrationStructs ...any) error {
 // les migrations gorms ne gérant pas les suppressions de tables ou de colonnes, un script manuel est obligatoire.
 // peu être utiles dans certaines autres optimisations de la base de données
 func (pgc *GormClient) scripts() error {
+	if pgc.migrationsDir == "" {
+		return nil
+	}
 	files, err := os.ReadDir(pgc.migrationsDir)
 	if err != nil {
 		return err
