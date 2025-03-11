@@ -15,7 +15,7 @@ type GormClient struct {
 	migrationsDir string
 }
 
-func New(cfg *GormConfig, migrationStructs ...any) (*GormClient, error) {
+func New(cfg *GormConfig, migrationStructs ...interface{}) (*GormClient, error) {
 	db, err := gorm.Open(postgres.Open(cfg.DSN), &gorm.Config{})
 	if err != nil {
 		return nil, err
@@ -65,9 +65,9 @@ func (pgc *GormClient) reset(resetDatabase bool) error {
 	return err
 }
 
-func (pgc *GormClient) migrations(migrationStructs ...any) error {
+func (pgc *GormClient) migrations(migrationStructs ...interface{}) error {
 	// Effectuez la migration automatique pour créer toutes les tables
-	err := pgc.DB.AutoMigrate(migrationStructs...)
+	err := pgc.DB.AutoMigrate(migrationStructs)
 	if err != nil {
 		log.Fatal().Err(err).Msg("Failed to auto migrate database")
 	}
