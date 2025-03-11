@@ -35,7 +35,7 @@ func New(cfg *GormConfig, migrationStructs ...interface{}) (*GormClient, error) 
 		return nil, err
 	}
 
-	if err = client.migrations(migrationStructs); err != nil {
+	if err = client.migrations(migrationStructs...); err != nil {
 		return nil, err
 	}
 
