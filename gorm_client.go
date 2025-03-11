@@ -67,7 +67,7 @@ func (pgc *GormClient) reset(resetDatabase bool) error {
 
 func (pgc *GormClient) migrations(migrationStructs ...any) error {
 	// Effectuez la migration automatique pour créer toutes les tables
-	err := pgc.DB.AutoMigrate(migrationStructs)
+	err := pgc.DB.AutoMigrate(migrationStructs...)
 	if err != nil {
 		log.Fatal().Err(err).Msg("Failed to auto migrate database")
 	}
